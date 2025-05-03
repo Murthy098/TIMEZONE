@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Zone Project</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <h2>Time Zone Project</h2>
+
+    <label>Select Time Zone:</label>
+    <select id="timezone" onchange="updateTime()">
+        <option value="UTC">UTC</option>
+        <option value="America/New_York">New York (EST)</option>
+        <option value="Europe/London">London (GMT)</option>
+        <option value="Asia/Kolkata">India (IST)</option>
+        <option value="Asia/Tokyo">Japan (JST)</option>
+    </select>
+
+    <p>Current Time: <span id="time"></span></p>
+
+    <script src="script.js"></script>
+</body>
+</html>
+/* This file styles the webpage */
+body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+h2 {
+    color: blue;
+}
+
+p {
+    font-size: 20px;
+    font-weight: bold;
+}
+function updateTime() {
+    const timezone = document.getElementById("timezone").value;
+    const now = new Date();
+
+    const options = {
+        timeZone: timezone,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+    };
+
+    const formatter = new Intl.DateTimeFormat([], options);
+    document.getElementById("time").innerText = formatter.format(now);
+}
+
+// Update time initially and every second
+updateTime();
+setInterval(updateTime, 1000);
